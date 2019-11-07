@@ -9,15 +9,9 @@
 
 namespace boolean {
 
-	constexpr boolean_value boolean_value::from_bool(bool value)
-	{
-		if (value) {
-			return boolean_value(true);
-		}
-		else {
-			return boolean_value(false);
-		}
-	}
+	constexpr boolean_value::boolean_value(bool value) :
+		_value(value)
+	{}
 
 	constexpr bool boolean_value::value() const
 	{
@@ -44,10 +38,6 @@ namespace boolean {
 		return value() == other.value();
 	}
 
-	constexpr boolean_value::boolean_value(bool value) :
-		_value(value)
-	{}
-
 
 	value_set::value_set(bool has_f, bool has_t) :
 		_has_f(has_f),
@@ -58,6 +48,21 @@ namespace boolean {
 	{
 		_has_f = std::find(values.begin(), values.end(), F) != values.end();
 		_has_t = std::find(values.begin(), values.end(), T) != values.end();
+	}
+
+	bool value_set::contains(boolean_value const& value) const
+	{
+		if (value == F) {
+			return _has_f;
+		}
+		else if (value == T) {
+			return _has_t;
+		}
+	}
+
+	bool value_set::operator==(value_set const& other) const
+	{
+		return _has_f == other._has_f && _has_t == other._has_t;
 	}
 
 }

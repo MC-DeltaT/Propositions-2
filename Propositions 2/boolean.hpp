@@ -10,7 +10,7 @@ namespace boolean {
 
 	class boolean_value {
 	public:
-		static constexpr boolean_value from_bool(bool value);
+		explicit constexpr boolean_value(bool value);
 
 		constexpr bool value() const;
 
@@ -22,13 +22,11 @@ namespace boolean {
 
 	private:
 		bool _value;
-
-		explicit constexpr boolean_value(bool value);
 	};
 
 
-	static constexpr boolean_value F = boolean_value::from_bool(false);;
-	static constexpr boolean_value T = boolean_value::from_bool(true);
+	static inline constexpr boolean_value F{false};
+	static inline constexpr boolean_value T{true};
 
 
 	class value_set {
@@ -36,6 +34,10 @@ namespace boolean {
 		value_set(bool has_f, bool has_t);
 
 		value_set(std::initializer_list<boolean_value> values);
+
+		bool contains(boolean_value const& value) const;
+
+		bool operator==(value_set const& other) const;
 
 	private:
 		bool _has_f;
