@@ -17,18 +17,28 @@ namespace truthtable {
 		_values(values)
 	{}
 
+	std::string const& input::label() const
+	{
+		return _label;
+	}
+
 	boolean::value_set const& input::values() const
 	{
 		return _values;
 	}
 
-	bool input::operator==(input const& other) const
+	bool input::is_unique() const
 	{
-		if (_is_unique) {
-			return this == &other;
+		return _is_unique;
+	}
+
+	bool operator==(input const& lhs, input const& rhs)
+	{
+		if (lhs.is_unique() || rhs.is_unique()) {
+			return &lhs == &rhs;
 		}
 		else {
-			return _label == other._label;
+			return lhs.label() == rhs.label();
 		}
 	}
 

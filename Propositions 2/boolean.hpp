@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <cstddef>
 #include <functional>
 #include <initializer_list>
@@ -13,17 +14,15 @@ namespace boolean {
 		explicit constexpr boolean_value(bool value);
 
 		constexpr bool value() const;
-
 		std::string to_string() const;
 
 		constexpr operator bool() const;
-
-		bool operator==(boolean_value const& other) const;
 
 	private:
 		bool _value;
 	};
 
+	constexpr bool operator==(boolean_value const& lhs, boolean_value const& rhs);
 
 	static inline constexpr boolean_value F{false};
 	static inline constexpr boolean_value T{true};
@@ -31,18 +30,24 @@ namespace boolean {
 
 	class value_set {
 	public:
-		value_set(bool has_f, bool has_t);
-
+		constexpr value_set(bool has_f, bool has_t);
 		value_set(std::initializer_list<boolean_value> values);
 
-		bool contains(boolean_value const& value) const;
+		constexpr bool contains(boolean_value const& value) const;
+		constexpr std::size_t size() const;
+		constexpr auto begin() const;
+		constexpr auto end() const;
 
-		bool operator==(value_set const& other) const;
+		friend constexpr bool operator==(value_set const& lhs, value_set const& rhs);
 
 	private:
 		bool _has_f;
 		bool _has_t;
+
+		static inline constexpr std::array<boolean_value, 2> _all_booleans{F, T};
 	};
+
+	static inline constexpr value_set all_values(true, true);
 
 }
 

@@ -20,7 +20,7 @@ namespace boolean {
 
 	std::string boolean_value::to_string() const
 	{
-		if (value()) {
+		if (_value) {
 			return "T";
 		}
 		else {
@@ -30,16 +30,16 @@ namespace boolean {
 
 	constexpr boolean_value::operator bool() const
 	{
-		return value();
+		return _value;
 	}
 
-	bool boolean_value::operator==(boolean_value const& other) const
+	constexpr bool operator==(boolean_value const& lhs, boolean_value const& rhs)
 	{
-		return value() == other.value();
+		return lhs.value() == rhs.value();
 	}
 
 
-	value_set::value_set(bool has_f, bool has_t) :
+	constexpr value_set::value_set(bool has_f, bool has_t) :
 		_has_f(has_f),
 		_has_t(has_t)
 	{}
@@ -50,7 +50,7 @@ namespace boolean {
 		_has_t = std::find(values.begin(), values.end(), T) != values.end();
 	}
 
-	bool value_set::contains(boolean_value const& value) const
+	constexpr bool value_set::contains(boolean_value const& value) const
 	{
 		if (value == F) {
 			return _has_f;
@@ -60,9 +60,24 @@ namespace boolean {
 		}
 	}
 
-	bool value_set::operator==(value_set const& other) const
+	constexpr std::size_t value_set::size() const
 	{
-		return _has_f == other._has_f && _has_t == other._has_t;
+		return static_cast<std::size_t>(_has_f) + static_cast<std::size_t>(_has_t);
+	}
+
+	constexpr auto value_set::begin() const
+	{
+		return _all_booleans.cbegin() + !_has_f;
+	}
+
+	constexpr auto value_set::end() const
+	{
+		return _all_booleans.cend() - !_has_t;
+	}
+
+	constexpr bool operator==(value_set const& lhs, value_set const& rhs)
+	{
+		return lhs._has_f == rhs._has_f && lhs._has_t == rhs._has_t;
 	}
 
 }
