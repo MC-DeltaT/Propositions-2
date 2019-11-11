@@ -11,43 +11,55 @@ namespace boolean {
 
 	class boolean_value {
 	public:
-		explicit constexpr boolean_value(bool value);
+		boolean_value();
+		explicit boolean_value(bool value);
 
-		constexpr bool value() const;
+		bool value() const;
 		std::string to_string() const;
 
-		constexpr operator bool() const;
+		operator bool() const;
 
 	private:
 		bool _value;
 	};
 
-	constexpr bool operator==(boolean_value const& lhs, boolean_value const& rhs);
+	bool operator==(boolean_value const& lhs, boolean_value const& rhs);
 
-	static inline constexpr boolean_value F{false};
-	static inline constexpr boolean_value T{true};
+	extern boolean_value const F;
+	extern boolean_value const T;
 
 
 	class value_set {
+	private:
+		using _set_type = std::array<boolean_value, 2>;
+
 	public:
-		constexpr value_set(bool has_f, bool has_t);
-		value_set(std::initializer_list<boolean_value> values);
+		using value_type = boolean_value;
+		using reference = boolean_value const&;
+		using const_reference = boolean_value const&;
+		using size_type = _set_type::size_type;
+		using iterator = _set_type::const_iterator;
+		using const_iterator = _set_type::const_iterator;
 
-		constexpr bool contains(boolean_value const& value) const;
-		constexpr std::size_t size() const;
-		constexpr auto begin() const;
-		constexpr auto end() const;
+		value_set();
+		value_set(bool has_f, bool has_t);
+		explicit value_set(std::initializer_list<boolean_value> values);
 
-		friend constexpr bool operator==(value_set const& lhs, value_set const& rhs);
+		bool contains(boolean_value const& value) const;
+		size_type size() const;
+		const_iterator begin() const;
+		const_iterator end() const;
+
+		friend bool operator==(value_set const& lhs, value_set const& rhs);
 
 	private:
 		bool _has_f;
 		bool _has_t;
 
-		static inline constexpr std::array<boolean_value, 2> _all_booleans{F, T};
+		static _set_type const _all_booleans;
 	};
 
-	static inline constexpr value_set all_values(true, true);
+	extern value_set const all_values;
 
 }
 

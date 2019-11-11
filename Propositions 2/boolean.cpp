@@ -9,11 +9,15 @@
 
 namespace boolean {
 
-	constexpr boolean_value::boolean_value(bool value) :
+	boolean_value::boolean_value() :
+		_value(false)
+	{}
+
+	boolean_value::boolean_value(bool value) :
 		_value(value)
 	{}
 
-	constexpr bool boolean_value::value() const
+	bool boolean_value::value() const
 	{
 		return _value;
 	}
@@ -28,18 +32,26 @@ namespace boolean {
 		}
 	}
 
-	constexpr boolean_value::operator bool() const
+	boolean_value::operator bool() const
 	{
 		return _value;
 	}
 
-	constexpr bool operator==(boolean_value const& lhs, boolean_value const& rhs)
+	bool operator==(boolean_value const& lhs, boolean_value const& rhs)
 	{
 		return lhs.value() == rhs.value();
 	}
 
+	boolean_value const F{false};
+	boolean_value const T{true};
 
-	constexpr value_set::value_set(bool has_f, bool has_t) :
+
+	value_set::value_set() :
+		_has_f(false),
+		_has_t(false)
+	{}
+
+	value_set::value_set(bool has_f, bool has_t) :
 		_has_f(has_f),
 		_has_t(has_t)
 	{}
@@ -50,36 +62,40 @@ namespace boolean {
 		_has_t = std::find(values.begin(), values.end(), T) != values.end();
 	}
 
-	constexpr bool value_set::contains(boolean_value const& value) const
+	bool value_set::contains(boolean_value const& value) const
 	{
 		if (value == F) {
 			return _has_f;
 		}
-		else if (value == T) {
+		else {
 			return _has_t;
 		}
 	}
 
-	constexpr std::size_t value_set::size() const
+	value_set::size_type value_set::size() const
 	{
 		return static_cast<std::size_t>(_has_f) + static_cast<std::size_t>(_has_t);
 	}
 
-	constexpr auto value_set::begin() const
+	value_set::const_iterator value_set::begin() const
 	{
 		return _all_booleans.cbegin() + !_has_f;
 	}
 
-	constexpr auto value_set::end() const
+	value_set::const_iterator value_set::end() const
 	{
 		return _all_booleans.cend() - !_has_t;
 	}
 
-	constexpr bool operator==(value_set const& lhs, value_set const& rhs)
+	value_set::_set_type const value_set::_all_booleans{F, T};
+
+	bool operator==(value_set const& lhs, value_set const& rhs)
 	{
 		return lhs._has_f == rhs._has_f && lhs._has_t == rhs._has_t;
 	}
 
+
+	value_set const all_values(true, true);
 }
 
 
