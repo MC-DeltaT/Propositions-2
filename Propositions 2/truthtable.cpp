@@ -171,7 +171,7 @@ namespace truthtable {
 
     truth_table join_tables(truth_table const& join_op, std::vector<truth_table> const& tables)
     {
-        std::vector<std::reference_wrapper<std::vector<input_variable>>> inputs;
+        std::vector<std::reference_wrapper<std::vector<input_variable> const>> inputs;
         inputs.reserve(tables.size());
         for (auto const& table : tables) {
             inputs.emplace_back(table.inputs());
@@ -195,10 +195,34 @@ namespace truthtable {
             }
         }
 
-        truth_table::table_type result_table;
         auto value_combinations = detail::value_combination_generator(result_inputs);
+
+        truth_table::table_type result_table;
+        result_table.reserve(value_combinations.size());
+
+        std::vector<std::vector<boolean::boolean_value>> base_input_values;
+        base_input_values.reserve(tables.size());
+        for (std::size_t i = 0; i < tables.size(); ++i) {
+            base_input_values.emplace_back(input_indices[i].size());
+        }
+
+        std::vector<boolean::boolean_value> base_output_values(tables.size());
+
         while (!value_combinations.done()) {
-        
+            auto const& new_input_values = value_combinations.next();
+            
+            for (std::size_t i = 0; i < input_indices.size(); ++i) {
+                for (std::size_t j = 0; j < input_indices[i].size(); ++j) {
+                    base_input_values[i][j] = new_input_values[input_indices[i][j]];
+                }
+            }
+
+            for (std::size_t i = 0; i < tables.size(); ++i) {
+                base_output_values[i] = tables[i][base_input_values[i]];
+            }
+
+            auto const new_output = join_op[base_output_values];
+            result_table.emplace_back(new_input_values, new_output);
         }
 
         std::vector<boolean::boolean_value> base_outputs(tables.size());
