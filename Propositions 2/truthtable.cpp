@@ -105,8 +105,7 @@ namespace truthtable {
     }
 
 
-    input_variable::input_variable(std::string label, boolean::value_set values, bool is_unique) :
-        _is_unique(is_unique),
+    input_variable::input_variable(std::string label, boolean::value_set values) :
         _label(label),
         _values(values)
     {}
@@ -121,31 +120,11 @@ namespace truthtable {
         return _values;
     }
 
-    bool input_variable::is_unique() const
-    {
-        return _is_unique;
-    }
-
     bool operator==(input_variable const& lhs, input_variable const& rhs)
     {
-        if (lhs.is_unique() || rhs.is_unique()) {
-            return &lhs == &rhs;
-        }
-        else {
-            return lhs.label() == rhs.label();
-        }
+        return lhs.label() == rhs.label();
     }
 
-
-    truth_table::truth_table(std::size_t num_inputs, table_type table) :
-        _table(table)
-    {
-        _inputs.reserve(num_inputs);
-        for (std::size_t i = 0; i < num_inputs; ++i) {
-            std::string label = "<" + std::to_string(i + 1) + ">";
-            _inputs.emplace_back(std::move(label));
-        }
-    }
 
     truth_table::truth_table(std::vector<input_variable> inputs, table_type table) :
         _inputs(inputs),
@@ -157,15 +136,14 @@ namespace truthtable {
         return _inputs;
     }
 
-    boolean::boolean_value const& truth_table::operator[](std::vector<boolean::boolean_value> const& input) const
+    truth_table::table_type const& truth_table::table() const
     {
-        for (auto const& row : _table) {
-            if (row.first == input) {
-                return row.second;
-            }
-        }
+        return _table;
+    }
 
-        throw std::out_of_range("Input sequence is not mapped to any output.");
+    boolean::boolean_value const& truth_table::operator[](std::vector<boolean::boolean_value> const& inputs) const
+    {
+        return (*this)[std::pair{inputs.cbegin(), inputs.cend()}];
     }
 
 

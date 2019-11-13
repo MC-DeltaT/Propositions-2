@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Template Source Files">
+      <UniqueIdentifier>{8b5765d9-68f8-4ace-ba41-14d7af8c8fb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boolean.cpp">
@@ -29,5 +32,10 @@
     <ClInclude Include="truthtable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="truthtable.tpp">
+      <Filter>Template Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

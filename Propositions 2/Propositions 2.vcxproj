@@ -144,6 +144,9 @@
     <ClInclude Include="boolean.hpp" />
     <ClInclude Include="truthtable.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="truthtable.tpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
