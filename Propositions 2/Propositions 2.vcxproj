@@ -139,13 +139,16 @@
   <ItemGroup>
     <ClCompile Include="boolean.cpp" />
     <ClCompile Include="truthtable.cpp" />
+    <ClCompile Include="truthtable_detail.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boolean.hpp" />
     <ClInclude Include="truthtable.hpp" />
+    <ClInclude Include="truthtable_detail.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="truthtable.tpp" />
+    <None Include="truthtable_detail.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

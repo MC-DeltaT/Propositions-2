@@ -24,6 +24,9 @@
     <ClCompile Include="truthtable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="truthtable_detail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boolean.hpp">
@@ -32,9 +35,15 @@
     <ClInclude Include="truthtable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="truthtable_detail.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="truthtable.tpp">
+      <Filter>Template Source Files</Filter>
+    </None>
+    <None Include="truthtable_detail.tpp">
       <Filter>Template Source Files</Filter>
     </None>
   </ItemGroup>
