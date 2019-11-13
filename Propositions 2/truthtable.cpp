@@ -10,6 +10,10 @@
 #include <utility>
 #include <vector>
 
+#include <boost/iterator/transform_iterator.hpp>
+#include <boost/iterator/zip_iterator.hpp>
+#include <boost/tuple/tuple.hpp>
+
 
 namespace truthtable {
 
@@ -92,7 +96,11 @@ namespace truthtable {
             base_input_values.emplace_back(input_indices[i].size());
         }
 
-        std::vector<boolean::boolean_value> base_output_values(tables.size());
+        static auto const base_output_generator = [](auto const& table_and_input_values) -> decltype(auto) {
+            auto const& table = table_and_input_values.get<0>();
+            auto const& input_values = table_and_input_values.get<1>();
+            return table[input_values];
+        };
 
         while (!value_combinations.done()) {
             auto const& new_input_values = value_combinations.next();
@@ -103,11 +111,12 @@ namespace truthtable {
                 }
             }
 
-            for (std::size_t i = 0; i < tables.size(); ++i) {
-                base_output_values[i] = tables[i][base_input_values[i]];
-            }
+            boost::iterators::zip_iterator table_and_input_begin(boost::make_tuple(tables.cbegin(), base_input_values.cbegin()));
+            boost::iterators::zip_iterator table_and_input_end(boost::make_tuple(tables.cend(), base_input_values.cend()));
+            boost::iterators::transform_iterator base_output_begin(table_and_input_begin, base_output_generator);
+            boost::iterators::transform_iterator base_output_end(table_and_input_end, base_output_generator);
 
-            auto const new_output = join_op[base_output_values];
+            auto const new_output = join_op[std::pair{base_output_begin, base_output_end}];
             result_table.emplace_back(new_input_values, new_output);
         }
 
