@@ -53,4 +53,10 @@ namespace truthtable::detail {
         return _values;
     }
 
+
+    boolean::boolean_value const& join_input_generator::operator()(std::size_t index) const
+    {
+        return (*new_input_values)[index];
+    }
+
 }

@@ -41,4 +41,13 @@ namespace truthtable::detail {
         _done = size() == 0;
     }
 
+
+    template<class BoostTuple>
+    decltype(auto) join_output_generator::operator()(BoostTuple const& table_and_input_values) const
+    {
+        auto const& table = table_and_input_values.get<0>();
+        auto const& input_values = table_and_input_values.get<1>();
+        return table[input_values];
+    }
+
 }

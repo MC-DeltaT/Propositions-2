@@ -31,6 +31,19 @@ namespace truthtable::detail {
         std::vector<boolean::boolean_value> _values;
     };
 
+
+    struct join_input_generator {
+        std::vector<boolean::boolean_value> const* new_input_values = nullptr;
+
+        boolean::boolean_value const& operator()(std::size_t index) const;
+    };
+
+
+    struct join_output_generator {
+        template<class BoostTuple>
+        decltype(auto) operator()(BoostTuple const& table_and_input_values) const;
+    };
+
 }
 
 
