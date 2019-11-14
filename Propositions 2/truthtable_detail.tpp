@@ -3,8 +3,13 @@
 #include "boolean.hpp"
 #include "truthtable.hpp"
 
+#include <cstddef>
 #include <iterator>
 #include <type_traits>
+#include <utility>
+#include <vector>
+
+#include <boost/iterator/transform_iterator.hpp>
 
 
 namespace truthtable::detail {
@@ -42,8 +47,16 @@ namespace truthtable::detail {
     }
 
 
+    inline auto join_input_generator::operator()(std::vector<std::size_t> const& indices) const
+    {
+        boost::transform_iterator begin(indices.cbegin(), _single_input_gen);
+        boost::transform_iterator end(indices.cend(), _single_input_gen);
+        return std::pair{begin, end};
+    }
+
+
     template<class BoostTuple>
-    decltype(auto) join_output_generator::operator()(BoostTuple const& table_and_input_values) const
+    boolean::boolean_value join_output_generator::operator()(BoostTuple const& table_and_input_values) const
     {
         auto const& table = table_and_input_values.get<0>();
         auto const& input_values = table_and_input_values.get<1>();

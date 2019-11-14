@@ -54,7 +54,12 @@ namespace truthtable::detail {
     }
 
 
-    boolean::boolean_value const& join_input_generator::operator()(std::size_t index) const
+    join_input_generator::join_input_generator(std::vector<boolean::boolean_value> const* new_input_values) :
+        _single_input_gen{new_input_values}
+    {}
+
+
+    boolean::boolean_value join_input_generator::single_input_generator::operator()(std::size_t index) const
     {
         return (*new_input_values)[index];
     }
