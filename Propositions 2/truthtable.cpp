@@ -48,6 +48,27 @@ namespace propositions {
         return _inputs;
     }
 
+    boolean_value_set truth_table::outputs() const
+    {
+        bool has_t = false;
+        bool has_f = false;
+
+        for (auto const& row : _table) {
+            if (row.second == F) {
+                has_f = true;
+            }
+            else {
+                has_t = true;
+            }
+
+            if (has_f && has_t) {
+                break;
+            }
+        }
+
+        return boolean_value_set(has_f, has_t);
+    }
+
     truth_table::table_type const& truth_table::table() const
     {
         return _table;

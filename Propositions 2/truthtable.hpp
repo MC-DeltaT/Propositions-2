@@ -32,6 +32,7 @@ namespace propositions {
         truth_table(std::vector<truth_table_input> inputs, table_type table);
 
         std::vector<truth_table_input> const& inputs() const;
+        boolean_value_set outputs() const;
         table_type const& table() const;
 
         boolean_value const& operator[](std::vector<boolean_value> const& inputs) const;
