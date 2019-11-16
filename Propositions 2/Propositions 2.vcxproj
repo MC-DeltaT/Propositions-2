@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="boolean.cpp" />
     <ClCompile Include="expression.cpp" />
+    <ClCompile Include="operation.cpp" />
     <ClCompile Include="simple_expression.cpp" />
     <ClCompile Include="truthtable.cpp" />
     <ClCompile Include="truthtable_detail.cpp" />
@@ -157,11 +158,14 @@
   <ItemGroup>
     <ClInclude Include="boolean.hpp" />
     <ClInclude Include="expression.hpp" />
+    <ClInclude Include="operation.hpp" />
+    <ClInclude Include="operation_detail.hpp" />
     <ClInclude Include="simple_expression.hpp" />
     <ClInclude Include="truthtable.hpp" />
     <ClInclude Include="truthtable_detail.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="operation_detail.tpp" />
     <None Include="truthtable.tpp" />
     <None Include="truthtable_detail.tpp" />
   </ItemGroup>

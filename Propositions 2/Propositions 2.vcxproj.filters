@@ -33,6 +33,9 @@
     <ClCompile Include="simple_expression.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="operation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boolean.hpp">
@@ -50,12 +53,21 @@
     <ClInclude Include="simple_expression.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="operation.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="operation_detail.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="truthtable.tpp">
       <Filter>Template Source Files</Filter>
     </None>
     <None Include="truthtable_detail.tpp">
+      <Filter>Template Source Files</Filter>
+    </None>
+    <None Include="operation_detail.tpp">
       <Filter>Template Source Files</Filter>
     </None>
   </ItemGroup>

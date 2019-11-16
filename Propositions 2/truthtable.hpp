@@ -29,6 +29,7 @@ namespace propositions {
     public:
         using table_type = std::vector<std::pair<std::vector<boolean_value>, boolean_value>>;
 
+        truth_table() = default;
         truth_table(std::vector<truth_table_input> inputs, table_type table);
 
         std::vector<truth_table_input> const& inputs() const;
