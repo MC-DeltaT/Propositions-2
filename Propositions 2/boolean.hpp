@@ -43,7 +43,7 @@ namespace propositions {
 
         boolean_value_set();
         boolean_value_set(bool has_f, bool has_t);
-        explicit boolean_value_set(std::initializer_list<boolean_value> values);
+        boolean_value_set(std::initializer_list<boolean_value> values);
 
         bool contains(boolean_value value) const;
         size_type size() const;
