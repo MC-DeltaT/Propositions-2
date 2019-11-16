@@ -28,6 +28,13 @@ namespace propositions::operation_detail {
         unary_operation_helper(std::unique_ptr<expression> rhs);
     };
 
+
+    template<class Operation, class Base>
+    class binary_operation_helper : public Base {
+    public:
+        binary_operation_helper(std::unique_ptr<expression> lhs, std::unique_ptr<expression> rhs);
+    };
+
 }
 
 
