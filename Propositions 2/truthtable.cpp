@@ -15,35 +15,35 @@
 #include <boost/tuple/tuple.hpp>
 
 
-namespace truthtable {
+namespace propositions {
 
-    input_variable::input_variable(std::string label, boolean::value_set values) :
+    truth_table_input::truth_table_input(std::string label, boolean_value_set values) :
         _label(label),
         _values(values)
     {}
 
-    std::string const& input_variable::label() const
+    std::string const& truth_table_input::label() const
     {
         return _label;
     }
 
-    boolean::value_set const& input_variable::values() const
+    boolean_value_set const& truth_table_input::values() const
     {
         return _values;
     }
 
-    bool operator==(input_variable const& lhs, input_variable const& rhs)
+    bool operator==(truth_table_input const& lhs, truth_table_input const& rhs)
     {
         return lhs.label() == rhs.label();
     }
 
 
-    truth_table::truth_table(std::vector<input_variable> inputs, table_type table) :
+    truth_table::truth_table(std::vector<truth_table_input> inputs, table_type table) :
         _inputs(inputs),
         _table(table)
     {}
 
-    std::vector<input_variable> const& truth_table::inputs() const
+    std::vector<truth_table_input> const& truth_table::inputs() const
     {
         return _inputs;
     }
@@ -53,7 +53,7 @@ namespace truthtable {
         return _table;
     }
 
-    boolean::boolean_value const& truth_table::operator[](std::vector<boolean::boolean_value> const& inputs) const
+    boolean_value const& truth_table::operator[](std::vector<boolean_value> const& inputs) const
     {
         return (*this)[std::pair{inputs.cbegin(), inputs.cend()}];
     }
@@ -61,7 +61,7 @@ namespace truthtable {
 
     truth_table join_tables(truth_table const& join_op, std::vector<truth_table> const& tables)
     {
-        std::vector<std::reference_wrapper<std::vector<input_variable> const>> inputs;
+        std::vector<std::reference_wrapper<std::vector<truth_table_input> const>> inputs;
         inputs.reserve(tables.size());
         for (auto const& table : tables) {
             inputs.emplace_back(table.inputs());
@@ -69,7 +69,7 @@ namespace truthtable {
 
         std::vector<std::vector<std::size_t>> input_indices(inputs.size());
 
-        std::vector<input_variable> result_inputs;
+        std::vector<truth_table_input> result_inputs;
         result_inputs.reserve(inputs.size());
 
         for (std::size_t i = 0; i < inputs.size(); ++i) {
@@ -85,22 +85,22 @@ namespace truthtable {
             }
         }
 
-        detail::value_combination_generator value_combinations(result_inputs);
+        truthtable_detail::input_combination_generator input_combinations(result_inputs);
 
         truth_table::table_type result_table;
-        result_table.reserve(value_combinations.size());
+        result_table.reserve(input_combinations.size());
 
-        while (!value_combinations.done()) {
-            auto const& new_input_values = value_combinations.next();
+        while (!input_combinations.done()) {
+            auto const& new_input_values = input_combinations.next();
 
-            detail::join_input_generator input_generator{&new_input_values};
+            truthtable_detail::join_input_generator input_generator{&new_input_values};
             boost::transform_iterator base_input_begin(input_indices.cbegin(), input_generator);
             boost::transform_iterator base_input_end(input_indices.cend(), input_generator);
 
             boost::zip_iterator table_and_input_begin(boost::make_tuple(tables.cbegin(), base_input_begin));
             boost::zip_iterator table_and_input_end(boost::make_tuple(tables.cend(), base_input_end));
 
-            detail::join_output_generator output_generator;
+            truthtable_detail::join_output_generator output_generator;
             boost::transform_iterator base_output_begin(table_and_input_begin, output_generator);
             boost::transform_iterator base_output_end(table_and_input_end, output_generator);
 

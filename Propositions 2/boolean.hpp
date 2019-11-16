@@ -7,7 +7,7 @@
 #include <string>
 
 
-namespace boolean {
+namespace propositions {
 
     class boolean_value {
     public:
@@ -29,7 +29,7 @@ namespace boolean {
     extern boolean_value const T;
 
 
-    class value_set {
+    class boolean_value_set {
     private:
         using _set_type = std::array<boolean_value, 2>;
 
@@ -41,16 +41,16 @@ namespace boolean {
         using iterator = _set_type::const_iterator;
         using const_iterator = _set_type::const_iterator;
 
-        value_set();
-        value_set(bool has_f, bool has_t);
-        explicit value_set(std::initializer_list<boolean_value> values);
+        boolean_value_set();
+        boolean_value_set(bool has_f, bool has_t);
+        explicit boolean_value_set(std::initializer_list<boolean_value> values);
 
         bool contains(boolean_value const& value) const;
         size_type size() const;
         const_iterator begin() const;
         const_iterator end() const;
 
-        friend bool operator==(value_set const& lhs, value_set const& rhs);
+        friend bool operator==(boolean_value_set const& lhs, boolean_value_set const& rhs);
 
     private:
         bool _has_f;
@@ -59,12 +59,12 @@ namespace boolean {
         static _set_type const _all_booleans;
     };
 
-    extern value_set const all_values;
+    extern boolean_value_set const all_booleans;
 
 }
 
 
 template<>
-struct std::hash<boolean::boolean_value> {
-    std::size_t operator()(boolean::boolean_value const& b) const noexcept;
+struct std::hash<propositions::boolean_value> {
+    std::size_t operator()(propositions::boolean_value const& b) const noexcept;
 };

@@ -8,38 +8,38 @@
 #include <vector>
 
 
-namespace truthtable {
+namespace propositions {
 
-    class input_variable {
+    class truth_table_input {
     public:
-        input_variable(std::string label = std::string(), boolean::value_set values = boolean::all_values);
+        truth_table_input(std::string label = std::string(), boolean_value_set values = all_booleans);
 
         std::string const& label() const;
-        boolean::value_set const& values() const;
+        boolean_value_set const& values() const;
 
     private:
         std::string _label;
-        boolean::value_set _values;
+        boolean_value_set _values;
     };
 
-    bool operator==(input_variable const& lhs, input_variable const& rhs);
+    bool operator==(truth_table_input const& lhs, truth_table_input const& rhs);
 
 
     class truth_table {
     public:
-        using table_type = std::vector<std::pair<std::vector<boolean::boolean_value>, boolean::boolean_value>>;
+        using table_type = std::vector<std::pair<std::vector<boolean_value>, boolean_value>>;
 
-        truth_table(std::vector<input_variable> inputs, table_type table);
+        truth_table(std::vector<truth_table_input> inputs, table_type table);
 
-        std::vector<input_variable> const& inputs() const;
+        std::vector<truth_table_input> const& inputs() const;
         table_type const& table() const;
 
-        boolean::boolean_value const& operator[](std::vector<boolean::boolean_value> const& inputs) const;
+        boolean_value const& operator[](std::vector<boolean_value> const& inputs) const;
         template<typename InputIterator>
-        boolean::boolean_value const& operator[](std::pair<InputIterator, InputIterator> inputs) const;
+        boolean_value const& operator[](std::pair<InputIterator, InputIterator> inputs) const;
 
     private:
-        std::vector<input_variable> _inputs;
+        std::vector<truth_table_input> _inputs;
         table_type _table;
     };
 

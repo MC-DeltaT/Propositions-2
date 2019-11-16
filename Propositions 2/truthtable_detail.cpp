@@ -7,9 +7,9 @@
 #include <vector>
 
 
-namespace truthtable::detail {
+namespace propositions::truthtable_detail {
 
-    std::size_t value_combination_generator::size() const
+    std::size_t input_combination_generator::size() const
     {
         std::size_t res = 1;
         for (auto const& set : _sets) {
@@ -18,12 +18,12 @@ namespace truthtable::detail {
         return res;
     }
 
-    bool value_combination_generator::done() const
+    bool input_combination_generator::done() const
     {
         return _done;
     }
 
-    std::vector<boolean::boolean_value> const& value_combination_generator::next()
+    std::vector<boolean_value> const& input_combination_generator::next()
     {
         if (_done) {
             throw std::logic_error("Generator is exhausted.");
@@ -54,12 +54,12 @@ namespace truthtable::detail {
     }
 
 
-    join_input_generator::join_input_generator(std::vector<boolean::boolean_value> const* new_input_values) :
+    join_input_generator::join_input_generator(std::vector<boolean_value> const* new_input_values) :
         _single_input_gen{new_input_values}
     {}
 
 
-    boolean::boolean_value join_input_generator::single_input_generator::operator()(std::size_t index) const
+    boolean_value join_input_generator::single_input_generator::operator()(std::size_t index) const
     {
         return (*new_input_values)[index];
     }
