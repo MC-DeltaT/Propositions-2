@@ -74,7 +74,7 @@ namespace propositions {
         return _table;
     }
 
-    boolean_value const& truth_table::operator[](std::vector<boolean_value> const& inputs) const
+    boolean_value truth_table::operator[](std::vector<boolean_value> const& inputs) const
     {
         return (*this)[std::pair{inputs.cbegin(), inputs.cend()}];
     }

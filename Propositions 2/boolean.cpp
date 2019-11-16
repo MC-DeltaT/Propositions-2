@@ -62,7 +62,7 @@ namespace propositions {
         _has_t = std::find(values.begin(), values.end(), T) != values.end();
     }
 
-    bool boolean_value_set::contains(boolean_value const& value) const
+    bool boolean_value_set::contains(boolean_value value) const
     {
         if (value == F) {
             return _has_f;
@@ -99,7 +99,7 @@ namespace propositions {
 }
 
 
-std::size_t std::hash<propositions::boolean_value>::operator()(propositions::boolean_value const& b) const noexcept
+std::size_t std::hash<propositions::boolean_value>::operator()(propositions::boolean_value b) const noexcept
 {
     return std::hash<bool>{}(b.value());
 }

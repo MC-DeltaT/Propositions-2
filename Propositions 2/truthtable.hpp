@@ -35,9 +35,9 @@ namespace propositions {
         boolean_value_set outputs() const;
         table_type const& table() const;
 
-        boolean_value const& operator[](std::vector<boolean_value> const& inputs) const;
+        boolean_value operator[](std::vector<boolean_value> const& inputs) const;
         template<typename InputIterator>
-        boolean_value const& operator[](std::pair<InputIterator, InputIterator> inputs) const;
+        boolean_value operator[](std::pair<InputIterator, InputIterator> inputs) const;
 
     private:
         std::vector<truth_table_input> _inputs;

@@ -45,7 +45,7 @@ namespace propositions {
         boolean_value_set(bool has_f, bool has_t);
         explicit boolean_value_set(std::initializer_list<boolean_value> values);
 
-        bool contains(boolean_value const& value) const;
+        bool contains(boolean_value value) const;
         size_type size() const;
         const_iterator begin() const;
         const_iterator end() const;
@@ -66,5 +66,5 @@ namespace propositions {
 
 template<>
 struct std::hash<propositions::boolean_value> {
-    std::size_t operator()(propositions::boolean_value const& b) const noexcept;
+    std::size_t operator()(propositions::boolean_value b) const noexcept;
 };

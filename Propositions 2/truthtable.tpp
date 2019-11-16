@@ -10,7 +10,7 @@
 namespace propositions {
 
     template<typename InputIterator>
-    boolean_value const& truth_table::operator[](std::pair<InputIterator, InputIterator> inputs) const
+    boolean_value truth_table::operator[](std::pair<InputIterator, InputIterator> inputs) const
     {
         for (auto const& row : _table) {
             if (std::equal(row.first.cbegin(), row.first.cend(), inputs.first, inputs.second)) {
