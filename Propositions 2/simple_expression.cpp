@@ -9,12 +9,12 @@
 namespace propositions {
 
     literal::literal(boolean_value value) :
-        _value(value),
         _truth({
-                {to_string(), {T}}
+                {value.to_string(), {value}}
             }, {
                 {{value}, value}
-            })
+            }),
+        _value(value)
     {}
 
     std::string literal::to_string() const

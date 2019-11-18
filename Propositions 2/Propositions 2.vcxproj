@@ -154,6 +154,8 @@
     <ClCompile Include="simple_expression.cpp" />
     <ClCompile Include="truthtable.cpp" />
     <ClCompile Include="truthtable_detail.cpp" />
+    <ClCompile Include="utility.cpp" />
+    <ClCompile Include="utility_detail.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boolean.hpp" />
@@ -163,11 +165,14 @@
     <ClInclude Include="simple_expression.hpp" />
     <ClInclude Include="truthtable.hpp" />
     <ClInclude Include="truthtable_detail.hpp" />
+    <ClInclude Include="utility.hpp" />
+    <ClInclude Include="utility_detail.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="operation_detail.tpp" />
     <None Include="truthtable.tpp" />
     <None Include="truthtable_detail.tpp" />
+    <None Include="utility_detail.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
