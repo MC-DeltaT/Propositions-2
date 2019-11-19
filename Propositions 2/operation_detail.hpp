@@ -26,6 +26,8 @@ namespace propositions::operation_detail {
     class unary_operation_helper : public Base {
     public:
         unary_operation_helper(std::unique_ptr<expression> rhs);
+
+        static std::unique_ptr<Base> create(std::unique_ptr<expression> rhs);
     };
 
 
@@ -33,6 +35,8 @@ namespace propositions::operation_detail {
     class binary_operation_helper : public Base {
     public:
         binary_operation_helper(std::unique_ptr<expression> lhs, std::unique_ptr<expression> rhs);
+
+        static std::unique_ptr<Base> create(std::unique_ptr<expression> lhs, std::unique_ptr<expression> rhs);
     };
 
 }

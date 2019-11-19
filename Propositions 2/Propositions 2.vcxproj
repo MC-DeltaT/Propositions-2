@@ -172,7 +172,6 @@
     <None Include="operation_detail.tpp" />
     <None Include="truthtable.tpp" />
     <None Include="truthtable_detail.tpp" />
-    <None Include="utility_detail.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

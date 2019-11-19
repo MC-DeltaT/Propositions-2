@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 
 namespace propositions {
@@ -32,26 +33,6 @@ namespace propositions {
     };
 
 
-    class identity : public operation_detail::unary_operation_helper<identity, unary_operation> {
-    public:
-        using unary_operation_helper::unary_operation_helper;
-
-    protected:
-        static truth_table const _join;
-        static std::string const _symbol;
-    };
-
-
-    class negation : public operation_detail::unary_operation_helper<negation, unary_operation> {
-    public:
-        using unary_operation_helper::unary_operation_helper;
-
-    protected:
-        static truth_table const _join;
-        static std::string const _symbol;
-    };
-
-
     class binary_operation : public operation {
     public:
         truth_table const& join() const;
@@ -71,6 +52,26 @@ namespace propositions {
         std::unique_ptr<expression> _rhs;
         std::string _symbol;
         truth_table _truth;
+    };
+
+
+    class identity : public operation_detail::unary_operation_helper<identity, unary_operation> {
+    public:
+        using unary_operation_helper::unary_operation_helper;
+
+    protected:
+        static truth_table const _join;
+        static std::string const _symbol;
+    };
+
+
+    class negation : public operation_detail::unary_operation_helper<negation, unary_operation> {
+    public:
+        using unary_operation_helper::unary_operation_helper;
+
+    protected:
+        static truth_table const _join;
+        static std::string const _symbol;
     };
 
 
@@ -122,5 +123,9 @@ namespace propositions {
         static truth_table const _join;
         static std::string const _symbol;
     };
+
+
+    extern std::vector<std::unique_ptr<unary_operation> (*)(std::unique_ptr<expression>)> const unary_operations;
+    extern std::vector<std::unique_ptr<binary_operation> (*)(std::unique_ptr<expression>, std::unique_ptr<expression>)> const binary_operations;
 
 }

@@ -82,8 +82,5 @@
     <None Include="operation_detail.tpp">
       <Filter>Template Source Files</Filter>
     </None>
-    <None Include="utility_detail.tpp">
-      <Filter>Template Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

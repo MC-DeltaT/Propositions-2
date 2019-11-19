@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 
 namespace propositions {
@@ -47,22 +48,6 @@ namespace propositions {
     {}
 
 
-    truth_table const identity::_join({{"rhs"}}, {
-            {{F}, F},
-            {{T}, T},
-        });
-
-    std::string const identity::_symbol = "";
-
-
-    truth_table const negation::_join({{"rhs"}}, {
-            {{F}, T},
-            {{T}, F},
-        });
-
-    std::string const negation::_symbol = "~";
-
-
     truth_table const& binary_operation::join() const
     {
         return *_join;
@@ -101,6 +86,22 @@ namespace propositions {
         _truth(truth),
         _symbol(symbol)
     {}
+
+
+    truth_table const identity::_join({{"rhs"}}, {
+            {{F}, F},
+            {{T}, T},
+        });
+
+    std::string const identity::_symbol = "";
+
+
+    truth_table const negation::_join({{"rhs"}}, {
+            {{F}, T},
+            {{T}, F},
+        });
+
+    std::string const negation::_symbol = "~";
 
 
     truth_table const conjunction::_join({{"lhs"}, {"rhs"}}, {
@@ -151,5 +152,19 @@ namespace propositions {
         });
 
     std::string const biconditional::_symbol = "<->";
+
+
+    std::vector<std::unique_ptr<unary_operation> (*)(std::unique_ptr<expression>)> const unary_operations{
+        identity::create,
+        negation::create
+    };
+
+    std::vector<std::unique_ptr<binary_operation> (*)(std::unique_ptr<expression>, std::unique_ptr<expression>)> const binary_operations{
+        conjunction::create,
+        disjunction::create,
+        excl_disjunction::create,
+        implication::create,
+        biconditional::create
+    };
 
 }
