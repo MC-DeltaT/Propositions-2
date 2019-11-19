@@ -3,6 +3,7 @@
 #include "boolean.hpp"
 #include "truthtable.hpp"
 
+#include <ostream>
 #include <string>
 
 
@@ -16,6 +17,12 @@ namespace propositions {
             }),
         _value(value)
     {}
+
+    std::ostream& literal::to_stream(std::ostream& stream) const
+    {
+        stream << _value.to_string();
+        return stream;
+    }
 
     std::string literal::to_string() const
     {
@@ -54,6 +61,12 @@ namespace propositions {
     std::string const& variable::name() const
     {
         return _name;
+    }
+
+    std::ostream& variable::to_stream(std::ostream& stream) const
+    {
+        stream << _name;
+        return stream;
     }
 
     std::string variable::to_string() const

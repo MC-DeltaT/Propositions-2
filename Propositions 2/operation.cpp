@@ -4,6 +4,7 @@
 #include "truthtable.hpp"
 
 #include <memory>
+#include <ostream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -24,6 +25,24 @@ namespace propositions {
     std::string const& unary_operation::symbol() const
     {
         return _symbol;
+    }
+
+    std::ostream& unary_operation::to_stream(std::ostream& stream) const
+    {
+        bool const parenthesise = !dynamic_cast<simple_expression const*>(_rhs.get()) && !dynamic_cast<unary_operation const*>(_rhs.get());
+
+        if (parenthesise) {
+            stream << '(';
+        }
+
+        stream << symbol();
+        _rhs->to_stream(stream);
+
+        if (parenthesise) {
+            stream << ')';
+        }
+
+        return stream;
     }
 
     std::string unary_operation::to_string() const
@@ -66,6 +85,19 @@ namespace propositions {
     std::string const& binary_operation::symbol() const
     {
         return _symbol;
+    }
+
+    std::ostream& binary_operation::to_stream(std::ostream& stream) const
+    {
+        stream << '(';
+        _lhs->to_stream(stream);
+        stream << ' ';
+        stream << symbol();
+        stream << ' ';
+        _rhs->to_stream(stream);
+        stream << ')';
+
+        return stream;
     }
 
     std::string binary_operation::to_string() const

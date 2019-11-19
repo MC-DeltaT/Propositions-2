@@ -5,6 +5,7 @@
 #include "truthtable.hpp"
 
 #include <memory>
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -19,6 +20,7 @@ namespace propositions {
         truth_table const& join() const;
         expression const& rhs() const;
         std::string const& symbol() const;
+        virtual std::ostream& to_stream(std::ostream& stream) const override;
         virtual std::string to_string() const override;
         virtual truth_table const& truth() const override;
 
@@ -39,6 +41,7 @@ namespace propositions {
         expression const& lhs() const;
         expression const& rhs() const;
         std::string const& symbol() const;
+        virtual std::ostream& to_stream(std::ostream& stream) const override;
         virtual std::string to_string() const override;
         virtual truth_table const& truth() const override;
 

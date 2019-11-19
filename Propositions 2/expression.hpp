@@ -3,6 +3,7 @@
 #include "boolean.hpp"
 #include "truthtable.hpp"
 
+#include <ostream>
 #include <string>
 
 
@@ -15,6 +16,7 @@ namespace propositions {
         virtual bool is_contradiction() const;
         virtual bool is_exact() const;
         virtual bool is_tautology() const;
+        virtual std::ostream& to_stream(std::ostream& stream) const = 0;
         virtual std::string to_string() const = 0;
         virtual truth_table const& truth() const = 0;
         virtual boolean_value_set values() const;

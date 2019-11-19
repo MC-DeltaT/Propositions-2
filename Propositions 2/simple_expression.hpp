@@ -4,6 +4,7 @@
 #include "expression.hpp"
 #include "truthtable.hpp"
 
+#include <ostream>
 #include <string>
 
 
@@ -13,6 +14,7 @@ namespace propositions {
     public:
         literal(boolean_value value);
 
+        virtual std::ostream& to_stream(std::ostream& stream) const override;
         virtual std::string to_string() const override;
         virtual truth_table const& truth() const override;
         boolean_value value() const;
@@ -33,6 +35,7 @@ namespace propositions {
         explicit variable(std::string name);
 
         std::string const& name() const;
+        virtual std::ostream& to_stream(std::ostream& stream) const override;
         virtual std::string to_string() const override;
         virtual truth_table const& truth() const override;
 
