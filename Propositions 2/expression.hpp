@@ -11,6 +11,8 @@ namespace propositions {
 
     class expression {
     public:
+        virtual ~expression() = default;
+
         virtual bool could_be(boolean_value value) const;
         virtual boolean_value exact_value() const;
         virtual bool is_contradiction() const;
